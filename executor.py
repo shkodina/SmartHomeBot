@@ -13,16 +13,24 @@ dp = Dispatcher(bot)
 
 
 
+def wrap_md_cmd_result_to_answer_message (message):
+   wraped = message.decode("utf-8")
+   print (wraped)
+   return wraped
+ 
+
+
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
    await message.reply("/tm - Temperature of Maloyaroslavec\n/to - Temperature of Obninsk\n/tk - Temperature of Keereyevsk\n")
  
 
+
 @dp.message_handler(commands=['tm']) 
 async def echo(message: types.Message):
    arg = "tm"
-   replay = subprocess.check_output("'%s' '%s'" % (script, arg), shell=True)
-   await message.answer(replay)
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, arg), shell=True))
+   await message.answer(text=replay, parse_mode='Markdown')
  
 
 
