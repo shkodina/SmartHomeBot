@@ -7,7 +7,7 @@ function get_weather_from_yandex_for () {
     local tmp=/tmp/curl-from-yandex-$(date '+%Y.%m.%d-%H:%M:%S:%s').html
     local data=$tmp.sed
 
-    curl "$yandex_url" > $tmp 2>>/dev/null
+    curl --max-time 10 "$yandex_url" > $tmp 2>>/dev/null
     sed -e "s/<div /\n<div /g" $tmp > $data
 
     local title=$(cat $data | grep header-title | grep main_title | sed 's/.*">//g' | tr -d "\"\/<>[a-z]")
@@ -28,18 +28,19 @@ function get_weather_from_yandex_for () {
 function get_weather_from_yandex_for_Obninsk () {
     local url="http://tower.obninskiy.net/"
     local tmp=/tmp/curl-from-obninsk-tower-$(date '+%Y.%m.%d-%H:%M:%S:%s').html
-    local data=$tmp.sed
+    local data=$tmp
 
-    curl "$url" > $tmp 2>>/dev/null
+    curl --max-time 10 "$url" > $tmp 2>>/dev/null
+    >&2 echo $tmp
 
-    if [ grep -q 'Не удается получить высотные профили данных с метеовышки' $data ]
+    grep -q '<font color=red>' $tmp
+    if [ $? ]
     then
         echo "До вышки НЕ достучаться"
-
+        grep '<center>' $data | grep '<h2>' | sed -e 's/<b>/\n<b>/g' | sed -E "s/<\/*[a-z]*[0-9]*>//g"
     else
         echo "Ща найдем"
     fi
-
 }
 
 
