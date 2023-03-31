@@ -38,4 +38,5 @@ def show_weather (message):
         case 'кир':
             arg = 'tk'
             return subprocess.check_output("'%s' '%s'" % (script_weather, arg), shell=True)
+        
     return "😈это плохой город.. не надо тебе про него знать😈"
