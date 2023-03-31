@@ -28,22 +28,31 @@ async def send_welcome(message: types.Message):
 
 @dp.message_handler(commands=['tm']) 
 async def echo(message: types.Message):
-   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, "tm"), shell=True))
+   arg = "tm"
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, arg), shell=True))
    await message.answer(text=replay, parse_mode='Markdown')
  
 
 
 @dp.message_handler(commands=['tk']) 
 async def echo(message: types.Message):
-   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, "tk"), shell=True))
+   arg = "tk"
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, arg), shell=True))
    await message.answer(text=replay, parse_mode='Markdown')
  
 
 
 @dp.message_handler(commands=['to']) 
 async def echo(message: types.Message):
-   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, "to"), shell=True))
+   arg = "to"
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, arg), shell=True))
    await message.answer(text=replay, parse_mode='Markdown')
+ 
+
+
+@dp.message_handler(commands=['echo']) 
+async def echo(message: types.Message):
+   await message.reply(text=message.text.removeprefix("/echo "), parse_mode='Markdown')
  
 
 

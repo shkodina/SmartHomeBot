@@ -26,7 +26,20 @@ function get_weather_from_yandex_for () {
 
 
 function get_weather_from_yandex_for_Obninsk () {
-    echo "Not Ready Yeat"
+    local url="http://tower.obninskiy.net/"
+    local tmp=/tmp/curl-from-obninsk-tower-$(date '+%Y.%m.%d-%H:%M:%S:%s').html
+    local data=$tmp.sed
+
+    curl "$url" > $tmp 2>>/dev/null
+
+    if [ grep -q 'Не удается получить высотные профили данных с метеовышки' $data ]
+    then
+        echo "До вышки НЕ достучаться"
+
+    else
+        echo "Ща найдем"
+    fi
+
 }
 
 
@@ -38,6 +51,7 @@ case "$1" in
         ;;
     "to" )
         echo get_weather_from_yandex_for_Obninsk
+             get_weather_from_yandex_for_Obninsk
         ;;
     "tk" )
         echo get_weather_from_yandex_for "https://yandex.ru/pogoda/?lat=53.93494797&lon=37.92854691"
