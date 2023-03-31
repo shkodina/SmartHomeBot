@@ -2,8 +2,8 @@
 
 
 
-function get_weather_from_yandex_for_Maloyaroslavec () {
-    local yandex_url="https://yandex.ru/pogoda/?lat=55.01266479&lon=36.46134567"
+function get_weather_from_yandex_for () {
+    local yandex_url="$1"
     local tmp=/tmp/curl-from-yandex-$(date '+%Y.%m.%d-%H:%M:%S:%s').html
     local data=$tmp.sed
 
@@ -26,19 +26,21 @@ function get_weather_from_yandex_for_Maloyaroslavec () {
 
 
 function get_weather_from_yandex_for_Obninsk () {
-
+    echo "Not Ready Yeat"
 }
 
 
 
 case "$1" in
     "tm" )
-        echo get_weather_from_yandex_for_Maloyaroslavec
+        echo get_weather_from_yandex_for "https://yandex.ru/pogoda/?lat=55.01266479&lon=36.46134567"
+             get_weather_from_yandex_for "https://yandex.ru/pogoda/?lat=55.01266479&lon=36.46134567"
         ;;
     "to" )
         echo get_weather_from_yandex_for_Obninsk
         ;;
     "tk" )
-        echo get_weather_from_yandex_for_Keereyevsk
+        echo get_weather_from_yandex_for "https://yandex.ru/pogoda/?lat=53.93494797&lon=37.92854691"
+             get_weather_from_yandex_for "https://yandex.ru/pogoda/?lat=53.93494797&lon=37.92854691"
         ;;
 esac

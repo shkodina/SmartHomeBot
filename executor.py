@@ -28,8 +28,21 @@ async def send_welcome(message: types.Message):
 
 @dp.message_handler(commands=['tm']) 
 async def echo(message: types.Message):
-   arg = "tm"
-   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, arg), shell=True))
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, "tm"), shell=True))
+   await message.answer(text=replay, parse_mode='Markdown')
+ 
+
+
+@dp.message_handler(commands=['tk']) 
+async def echo(message: types.Message):
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, "tk"), shell=True))
+   await message.answer(text=replay, parse_mode='Markdown')
+ 
+
+
+@dp.message_handler(commands=['to']) 
+async def echo(message: types.Message):
+   replay = wrap_md_cmd_result_to_answer_message(subprocess.check_output("'%s' '%s'" % (script, "to"), shell=True))
    await message.answer(text=replay, parse_mode='Markdown')
  
 
