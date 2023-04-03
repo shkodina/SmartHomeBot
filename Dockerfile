@@ -4,7 +4,7 @@ FROM i386/ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt upgrade -y && \
-    apt install -y curl wget python3-yaml python-is-python3 python3-pip jq
+    apt install -y curl wget python3-yaml python3-pip jq
 
 RUN mkdir -p /app/bash
 COPY bash/* /app/bash/
