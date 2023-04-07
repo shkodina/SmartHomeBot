@@ -1,5 +1,5 @@
-# FROM ubuntu:22.04
-FROM i386/ubuntu
+FROM ubuntu:22.04
+# FROM i386/ubuntu
 
 ENV DEBIAN_FRONTEND=noninteractive
 
