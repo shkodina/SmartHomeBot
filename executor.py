@@ -12,6 +12,7 @@ from aiogram import Bot, Dispatcher, executor, types
 
 
 TELEBOT_TOKEN_API = os.getenv('TELEBOT_TOKEN_API')
+TELEBOT_ALLOWED_IDS = os.getenv('TELEBOT_ALLOWED_IDS')
 bot = Bot(token=TELEBOT_TOKEN_API)
 dp = Dispatcher(bot)
 
@@ -66,7 +67,11 @@ async def echo(message: types.Message):
 
 @dp.message_handler()
 async def echo(message: types.Message):
-   await message.answer(wrap_message(cm.select_action(message.text)))
+   print(message.from_user)
+   if str(message.from_user.id) not in TELEBOT_ALLOWED_IDS:
+      await message.answer('У тебя нет власти отдавать мне приказы')
+   else:
+      await message.answer(wrap_message(cm.select_action(message.text)))
 
 
 
