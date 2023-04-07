@@ -9,8 +9,7 @@ script_actor="bash/test_actor.sh"
 
 
 def select_action (message):
-    all_words = message.split()
-    match all_words[0].lower() :
+    match message.split()[0].lower() :
         case 'погода':
             return show_weather(message)
         case 'время' | 'time':
@@ -18,6 +17,8 @@ def select_action (message):
             return subprocess.check_output("'%s' '%s'" % (script_actor, arg), shell=True)
         case 'помоги' | 'помощь' | 'help':
             return 'погода\nвремя[time]\nпомощь[help]'
+        case 'bash':
+            return subprocess.check_output("/bin/bash -ec '%s'" % (message.removeprefix('bash')), shell=True)
         case _:
             return message
         
